@@ -9,11 +9,23 @@ use Symfony\Component\Routing\Annotation\Route;
 class BlogController extends AbstractController
 {
     /**
+     * @return Response
      * @Route("/blog", name="blog")
      */
     public function index(): Response
     {
         return $this->render('blog/index.html.twig', [
+            'controller_name' => 'BlogController',
+        ]);
+    }
+
+    /**
+     * @return Response
+     * @Route("/",name="home")
+     */
+    public function home():Response
+    {
+        return $this->render('blog/home.html.twig', [
             'controller_name' => 'BlogController',
         ]);
     }
