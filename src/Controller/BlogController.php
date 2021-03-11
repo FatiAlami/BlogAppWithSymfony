@@ -29,4 +29,15 @@ class BlogController extends AbstractController
             'controller_name' => 'BlogController',
         ]);
     }
+
+    /**
+     * @return Response
+     * @Route("/blog/12",name="blog_show")
+     */
+    public function show():Response
+    {
+        return $this->render('blog/show.html.twig', [
+            'controller_name' => 'BlogController',
+        ]);
+    }
 }
