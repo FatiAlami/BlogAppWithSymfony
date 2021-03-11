@@ -1,24 +1,13 @@
 {% extends 'base.html.twig' %}
 {% block body %}
     <article>
-        <h2>Titre de l'article</h2>
+        <h2>{{ article.title }}</h2>
         <div class="metadata">
-            Ecrit le 10/03/2021 à 16:26 dans l'entreprise SQLI
+            Ecrit le {{ article.createdAt|date('d/m/Y')}} à {{ article.createdAt|date('H:i') }} dans l'entreprise SQLI
         </div>
         <div class="content">
-            <img src="https://via.placeholder.com/700" alt="" />
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut autem ,
-                dignissimos doloremque eaque facere facilis fugit libero magnam quasi
-                qui reprehenderit sed tempore ullam ut vero vitae voluptas voluptate?
-            </p>
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut autem ,
-                dignissimos doloremque eaque facere facilis fugit libero magnam quasi
-                qui reprehenderit sed tempore ullam ut vero vitae voluptas voluptate?
-            </p>
-            <hr>
-            <p><span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus autem cumque cupiditate delectus dolore ex incidunt iure perspiciatis, provident quae quaerat rem, sint, voluptate? Alias dolore ducimus eos explicabo qui?</span><span>Architecto consectetur corporis dolores est harum impedit magnam maiores, maxime minima modi necessitatibus nihil obcaecati provident quas repellat veniam, voluptas? Accusantium dignissimos, eveniet modi molestiae neque quod rerum sed voluptatem?</span><span>Ab, enim, quisquam. Asperiores cumque quae unde vero. Aperiam culpa cum debitis deserunt doloribus earum est impedit ipsam ipsum iusto nostrum, nulla odit quas sit soluta suscipit temporibus, velit veniam!</span><span>Accusantium at culpa debitis doloribus, ducimus esse laborum molestias obcaecati porro praesentium quae quaerat quam sapiente sed sunt ullam voluptas. Ad, eius exercitationem impedit officiis omnis sit temporibus. Perspiciatis, quod.</span><span>A, accusamus aliquid amet beatae blanditiis dolore doloremque eos fugiat, in inventore iure labore laboriosam magnam magni minima modi mollitia nemo nisi nostrum numquam obcaecati perspiciatis ratione saepe sunt voluptate.</span><span>Accusantium adipisci culpa dolorum exercitationem molestias quas quibusdam, unde veritatis. Beatae corporis optio quo quos sint. Beatae corporis ea eaque facilis fuga, harum id laudantium repellendus sed vel. Beatae, eaque.</span><span>Accusamus accusantium animi at atque dicta dolorem doloribus dolorum eaque eum ex facere facilis fugit, inventore iste, modi molestiae necessitatibus nemo numquam obcaecati pariatur quibusdam rem sunt voluptatum. Alias, exercitationem?</span><span>Alias assumenda corporis culpa eum illo in perspiciatis qui, ullam velit voluptatum. Accusamus assumenda cumque illo laboriosam minus nesciunt nostrum nulla quia similique, unde? Aut iusto necessitatibus quibusdam quos voluptas?</span><span>Animi beatae et minima nostrum quaerat reprehenderit voluptatibus! Ab aut debitis dolores est, eum eveniet excepturi explicabo facere facilis illo ipsam iste modi omnis quam, quas, qui tenetur vel? Itaque?</span><span>Accusamus asperiores corporis cum deserunt dolorem eum exercitationem illo ipsa iusto nobis nostrum perspiciatis provident quidem quisquam recusandae repellendus sed, tempora totam! Accusantium architecto aspernatur, dolorum earum iure molestiae nesciunt?</span></p>
+            <img src="{{ article.image }}" alt="" />
+            {{ article.content|raw }}
         </div>
     </article>
 {% endblock %}
