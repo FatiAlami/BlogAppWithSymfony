@@ -3,10 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\Article;
+use App\Form\ArticleType;
 use App\Repository\ArticleRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -20,6 +22,7 @@ class BlogController extends AbstractController
     public function index(ArticleRepository $repo): Response
     {
         $articles = $repo->findAll();
+
         return $this->render('blog/index.html.twig', [
             'controller_name' => 'BlogController',
             'articles' => $articles,
@@ -32,31 +35,40 @@ class BlogController extends AbstractController
      */
     public function home():Response
     {
+
         return $this->render('blog/home.html.twig', [
             'controller_name' => 'BlogController',
         ]);
     }
 
 
-
     /**
+     * @param Article|null $article
+     * @param Request $request
+     * @param EntityManagerInterface $manager
      * @return Response
      * @Route("/blog/new",name="blog_create")
+     * @Route("/blog/{id}/update",name="blog_edit")
      */
-    public function create(): Response
+    public function create(Request $request, EntityManagerInterface $manager, Article $article = null): Response
     {
-        $article = new Article();
-        $form = $this->createFormBuilder($article)
-            ->add('title')
-            ->add('content',TextareaType::class,[
-                'attr' => [
-                    'placeholder' => "Contenu de l'article",
-                ]
-            ])
-            ->add('image')
-            ->getForm();
+        if (!$article){
+            $article = new Article();
+        }
+        $form = $this->createForm(ArticleType::class,$article);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            if(!$article->getId())
+                $article->setCreatedAt(new \DateTime());
+            $manager->persist($article);
+            $manager->flush();
+
+             return $this->redirectToRoute('blog_show',['id' => $article->getId()]);
+        }
+
         return $this->render('blog/create.html.twig',[
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'modeEdit' => $article->getId() !== null
         ]);
     }
 
@@ -73,6 +85,7 @@ class BlogController extends AbstractController
                 'No article found for id '
             );
         }
+
         return $this->render('blog/show.html.twig', [
             'article' => $article,
         ]);

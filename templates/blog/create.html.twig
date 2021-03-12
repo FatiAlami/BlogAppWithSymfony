@@ -1,6 +1,17 @@
 {% extends 'base.html.twig' %}
 
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+
 {% block body %}
     <h1>Creation d'un article</h1>
-    {{ form(form) }}
+    {{ form_start(form) }}
+      {{ form_widget(form) }}
+       <button type="submit" class="btn btn-primary">
+           {% if modeEdit %}
+               Enregister les modifications
+           {% else %}
+               Ajouter
+           {% endif %}
+       </button>
+    {{ form_end(form) }}
 {% endblock %}
