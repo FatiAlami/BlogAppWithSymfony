@@ -67,7 +67,7 @@ class AppFixtures extends Fixture
                 ->setCategory($category)
                 ->setCreatedAt(new \DateTime());
             $manager->persist($article);
-            $this->addReference('ARTICLE'.$j, $category);
+            $this->addReference('ARTICLE'.$j, $article);
         }
     }
 
@@ -78,7 +78,7 @@ class AppFixtures extends Fixture
      */
     private function loadComments(ObjectManager $manager)
     {
-        for ($k = 1; $k <= mt_rand(4,6); $k++) {
+        for ($k = 1; $k <= mt_rand(30,40); $k++) {
             /** @var Comment $comment */
             $article = $this->getReference('ARTICLE'.\rand(1,4));
 

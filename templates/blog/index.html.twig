@@ -6,16 +6,17 @@
     <section class="articles">
         {% for article in articles %}
           <article>
-            <h2>{{ article.title }}</h2>
+            <h1>{{ article.title }}</h1><br>
+            <h2>Category:{{ article.category.title }}</h2>
             <div class="metadata">
                 Ecrit le {{ article.createdAt|date('d/m/Y') }} à {{ article.createdAt|date('H:i') }} dans l'entreprise SQLI
-            </div>
+            </div><br>
             <div class="content">
-                <img src="{{ article.image }}" alt="" />
-                 {{ article.content|raw }}
+                <img src="{{ article.image }}" alt="" /><br>
+                 {{ article.content|raw }}<br>
                 <a href="{{ path('blog_show',{'id':article.id}) }}" class="btn btn-primary"> Lire la suite</a>
-            </div>
-        </article>
+            </div><br>
+        </article><hr><hr>
         {% endfor %}
     </section>
 {% endblock %}
