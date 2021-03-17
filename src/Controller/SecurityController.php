@@ -14,7 +14,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class SecurityController extends AbstractController
 {
     /**
-     * @Route("/register", name="security")
+     * @Route("/register", name="security_register")
      * @param Request $request
      * @param EntityManagerInterface $manager
      * @param UserPasswordEncoderInterface $encoder
@@ -33,10 +33,21 @@ class SecurityController extends AbstractController
             $user->setPassword($hash);
             $manager->persist($user);
             $manager->flush();
+
+            return $this->redirectToRoute('security_login');
         }
 
         return $this->render('security/registration.html.twig',[
             'form' => $form->createView()
         ]);
+    }
+
+    /**
+     * @Route("/login", name="security_login")
+     * @return Response
+     */
+    public function login(): Response
+    {
+        return $this->render('security/login.html.twig');
     }
 }
